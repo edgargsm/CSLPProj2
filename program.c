@@ -7,7 +7,7 @@
 
 int main() {
 
-    FILE *f = fopen("peppers.ppm", "rb");
+    FILE *f = fopen("lena.ppm", "rb");
     char *type = calloc(5, sizeof(char));
     char *dim = calloc(50, sizeof(char));
     int x;
@@ -69,6 +69,7 @@ int main() {
     
     //fprintf(wf, "P6\n512 512\n255\n");
     fprintf(wf, "%s\n%d %d\n%d\n", type, x, y, gama);
+    printf("%s\n%d %d\n%d\n", type, x, y, gama);
 
     for(int i = 0; i<x; i++){ //Line
         for(int n = 0; n<y; n++){ //Column
