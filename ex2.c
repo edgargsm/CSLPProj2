@@ -76,12 +76,32 @@ void save_image_to_file(RGBIMAGE *im, char *name){
     }
 
     fclose(wf);
-
 }
+
+RgbPixel get_pixel(RGBIMAGE *im, int x, int y){
+    if (x <= im->x && y <= im->y){
+        return im->rgb[x][y];
+    }
+}
+
+void set_pixel(RGBIMAGE *im, int x, int y, RgbPixel value){
+    if (x <= im->x && y <= im->y){
+        im->rgb[x][y] = value;
+    }
+}
+
+
 
 
 int main() {
 
     RGBIMAGE *im = load_from_file("lena.ppm");
+    RgbPixel p = get_pixel(im, 10, 10);
+
+    for(int x = 50 ; x < 400; x++){
+        for(int y = 50 ; y< 400; y++){
+            set_pixel(im, x, y, p);
+        }
+    }
     save_image_to_file(im, "lena2.ppm");
 }
