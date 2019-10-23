@@ -1,42 +1,9 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "structs.h"
 
 
-typedef struct{
-    unsigned char pix[3];
-}RgbPixel;
-
-typedef struct{
-    unsigned char pix;
-}GrayPixel;
-
-typedef struct{
-    unsigned char pix;
-}BitPixel;
-
-typedef struct {
-    RgbPixel **rgb;
-    char *type;
-    int x;
-    int y;
-    int gama;
-
-}RGBIMAGE;
-
-typedef struct {
-    GrayPixel **gray;
-    char *type;
-    int x;
-    int y;
-    int gama;
-
-}GRAYIMAGE;
-
-typedef struct {
-    BitPixel **bits;
-    char *type;
-    int x;
-    int y;
-    int gama;
-}BINARYIMAGE;
 
 RgbPixel **allocMemRGB(int x, int y){
 
@@ -72,7 +39,7 @@ RGBIMAGE *load_RGB_from_file(char *name){
     FILE *f = fopen(name, "rb");
 
     if(f == NULL){
-      printf("Error opening file %s! \n", name);
+      printf("Error! \n");
       exit(1);
     }
 
@@ -113,7 +80,7 @@ GRAYIMAGE *load_Gray_from_file(char *name){
     FILE *f = fopen(name, "rb");
 
     if(f == NULL){
-      printf("Error opening file %s! \n", name);
+      printf("Error! \n");
       exit(1);
     }
 
@@ -152,7 +119,7 @@ BINARYIMAGE *load_Binary_from_file(char *name){
     FILE *f = fopen(name, "rb");
 
     if(f == NULL){
-      printf("Error opening file %s! \n", name);
+      printf("Error! \n");
       exit(1);
     }
 
@@ -285,4 +252,10 @@ GrayPixel getGrayPixel(GRAYIMAGE *im, int x, int y){
 
 BitPixel getBitPixel(BINARYIMAGE *im, int x, int y){
     return im->bits[x][y];
+}
+
+int main() {
+
+    BINARYIMAGE *im = load_Binary_from_file("writefBinary.pbm");
+    save_Binary_image_to_file(im, "writefBinary2.pbm");
 }
