@@ -19,44 +19,17 @@ GRAYIMAGE *edgeDetection(GRAYIMAGE *im){
 
     edge->gray = allocMemGray(im->x,im->y);
 
-    for(int i = 0; i<im->x; i++){ //Line
-        for(int n = 0; n<im->y; n++){ //Column
-                int v = 0;
-                int count = 0;
-                if(i!=0 && n!=0){
-                    v = v + (kernel[0][0]*im->gray[i-1][n-1].pix);
-                    count++;
+    int v;
+    for(int i = 1; i<im->x-1; i++){ //Line
+        for(int n = 1; n<im->y-1; n++){ //Column
+                v = 0;
+
+                for(int i2 = 0; i2<3; i2++){
+                    for(int n2 = 0; n2<3; n2++){
+                        v = v + (kernel[i2][n2]*im->gray[i-1+i2][n-1+n2].pix);
+                    }
                 }
-                if(i!=0){
-                    v = v + (kernel[0][1]*im->gray[i-1][n].pix);
-                    count++;
-                }
-                if(i!=0 && n!=im->y-1){
-                    v = v + (kernel[0][2]*im->gray[i-1][n+1].pix);
-                    count++;
-                }
-                if(n!=0){
-                    v = v + (kernel[1][0]*im->gray[i][n-1].pix);
-                    count++;
-                }
-                v = v + (kernel[1][1]*im->gray[i][n].pix);
-                count++;
-                if(n!=im->y-1){
-                    v = v + (kernel[1][2]*im->gray[i][n+1].pix);
-                    count++;
-                }
-                if(i!=im->x-1 && n!=0){
-                    v = v + (kernel[2][0]*im->gray[i+1][n-1].pix);
-                    count++;
-                }
-                if(i!=im->x-1){
-                    v = v + (kernel[2][1]*im->gray[i+1][n].pix);
-                    count++;
-                }
-                if(i!=im->x-1 && n!=im->y-1){
-                    v = v + (kernel[2][2]*im->gray[i+1][n+1].pix);
-                    count++;
-                }
+
                 if(v<0){
                     v = -1*v;
                 }
@@ -74,8 +47,7 @@ RGBIMAGE *SharpenFilter(RGBIMAGE *im){
     int kernel[3][3] = {{0,-1,0},
                         {-1, 5,-1},
                         {0,-1,0}};
-    
-    RGBIMAGE *sharp = calloc(1, sizeof(GRAYIMAGE));
+    RGBIMAGE *sharp = calloc(1, sizeof(RGBIMAGE));
 
     sharp->type = im->type;
     sharp->x = im->x;
@@ -84,51 +56,22 @@ RGBIMAGE *SharpenFilter(RGBIMAGE *im){
 
     sharp->rgb = allocMemRGB(im->x,im->y);
 
-    for(int i = 0; i<im->x; i++){ //Line
-        for(int n = 0; n<im->y; n++){ //Column
+    int v;
+    for(int i = 1; i<im->x-1; i++){ //Line
+        for(int n = 1; n<im->y-1; n++){ //Column
             for(int p = 0; p<3; p++){ //Red, Green, Blue
-                int v = 0;
-                int count = 0;
-                if(i!=0 && n!=0){
-                    v = v + (kernel[0][0]*im->rgb[i-1][n-1].pix[p]);
-                    count++;
+                v = 0;
+
+                for(int i2 = 0; i2<3; i2++){
+                    for(int n2 = 0; n2<3; n2++){
+                        v = v + (kernel[i2][n2]*im->rgb[i-1+i2][n-1+n2].pix[p]);
+                    }
                 }
-                if(i!=0){
-                    v = v + (kernel[0][1]*im->rgb[i-1][n].pix[p]);
-                    count++;
-                }
-                if(i!=0 && n!=im->y-1){
-                    v = v + (kernel[0][2]*im->rgb[i-1][n+1].pix[p]);
-                    count++;
-                }
-                if(n!=0){
-                    v = v + (kernel[1][0]*im->rgb[i][n-1].pix[p]);
-                    count++;
-                }
-                v = v + (kernel[1][1]*im->rgb[i][n].pix[p]);
-                count++;
-                if(n!=im->y-1){
-                    v = v + (kernel[1][2]*im->rgb[i][n+1].pix[p]);
-                    count++;
-                }
-                if(i!=im->x-1 && n!=0){
-                    v = v + (kernel[2][0]*im->rgb[i+1][n-1].pix[p]);
-                    count++;
-                }
-                if(i!=im->x-1){
-                    v = v + (kernel[2][1]*im->rgb[i+1][n].pix[p]);
-                    count++;
-                }
-                if(i!=im->x-1 && n!=im->y-1){
-                    v = v + (kernel[2][2]*im->rgb[i+1][n+1].pix[p]);
-                    count++;
-                }
+    
                 if(v<0){
                     v = -1*v;
                 }
-                /*if(gray[i][n]==0){
-                    v = v/8;
-                }*/
+        
                 if(v>255){
                     v = 255;
                 }
