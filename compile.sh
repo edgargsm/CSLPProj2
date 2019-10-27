@@ -1,6 +1,6 @@
 #!/bin/bash
 
 mkdir bin
-cd CSLPProj2
+cd src
 make
 
