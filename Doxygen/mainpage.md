@@ -1,9 +1,9 @@
 # Authors
-Edgar Morais, nmec: 89323
+Edgar Morais, nmec: 89323  
 João Silva, nmec: 88813
 
 # Compile Everything
-$ chmod +x compile.sh
+$ chmod +x compile.sh  
 $ ./compile.sh
 
 # Execute program
