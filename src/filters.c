@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "structs.h"
+#include "convertions.h"
+
 ///@file
 
 /// Função utilizada para aplicar o filtro de edge detection a uma imagem GrayScale.
