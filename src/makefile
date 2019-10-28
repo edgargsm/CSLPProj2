@@ -6,6 +6,6 @@ all:
 	$gcc -w IntensityRGB.c -o ../bin/IntensityRGB
 	$gcc -w GrayToBin.c -o ../bin/GrayToBin
 	$gcc -w RGBToGray.c -o ../bin/RGBToGray
-	$gcc -w waterMarker.c -o ../bin/waterMarker
+	$gcc -w waterMarker.c -lm -o ../bin/waterMarker
 
 

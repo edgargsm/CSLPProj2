@@ -76,6 +76,7 @@ $(function() {
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;getopt.h&gt;</code><br />
 <code>#include &quot;structs.h&quot;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -155,8 +156,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>isNumeric</b> (const c
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Beginning in (X,Y) pixel from SrcImage and (0,0) pixel from WaterMarkImg, will substitute each SrcImage Pixel for an average of the the corresponding pixel from both images.</p>
-<p>If the pixel value from the WaterMarkImg is 0 0 0 (Black) the SrcImage pixel will keep his original value (Create water mark with no background colour) </p>
+<p>Beginning in (X,Y) pixel from SrcImage and (0,0) pixel from WaterMarkImg (following right and down directions), will substitute each SrcImage Pixel for an average of the the corresponding pixel from both images.</p>
+<p>If the pixel value from the WaterMarkImg is 0 0 0 (Black) the SrcImage pixel will keep his original value (Create water mark with no background colour)</p>
+<p>If the WaterMarkImg has not enought space the program will resize automatically. </p>
+<p>First Calculate the remaining space SrcImage has.</p>
+<p>Calculate how many pixels do we have to "jump" each time to fit WaterMarkImg</p>
+<p>If jump is less than 1 don do theese jumps, image fits.</p>
+<p>Iterate over both images</p>
+<p>keep iterator with jumps and another (int) to iterate over the image</p>
+<p>This is needed because if "jump" if ex: 1.4, the 0.4 will be forgot due to round. The image would not shrink at all.</p>
 
 </div>
 </div>
