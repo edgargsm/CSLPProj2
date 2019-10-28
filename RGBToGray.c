@@ -3,7 +3,11 @@
 #include <stdlib.h>
 #include "structs.h"
 
-
+///
+///Função utilizada para converter uma imagem RGB(dada como argumento)
+///em uma imagem Grayscale em que se calcula o valor de cada pixel através do valor
+///dos pixeis de todos os canais da imagem RGB.
+///
 GRAYIMAGE *RGBToGray(RGBIMAGE *im){
     GRAYIMAGE *gim = calloc(1, sizeof(GRAYIMAGE));
 
@@ -27,7 +31,11 @@ GRAYIMAGE *RGBToGray(RGBIMAGE *im){
     }
     return gim;
 }
-
+///
+///Função utilizada para converter uma imagem RGB(dada como argumento)
+///em uma imagem Grayscale em que o valor do pixel é dado pelo valor do mesmo pixel
+///do canal vermelho da imagem RGB.
+//
 GRAYIMAGE *RGBRedToGray(RGBIMAGE *im){
     GRAYIMAGE *gim = calloc(1, sizeof(GRAYIMAGE));
 
@@ -45,7 +53,11 @@ GRAYIMAGE *RGBRedToGray(RGBIMAGE *im){
     }
     return gim;
 }
-
+///
+///Função utilizada para converter uma imagem RGB(dada como argumento)
+///em uma imagem Grayscale em que o valor do pixel é dado pelo valor do mesmo pixel
+///do canal verde da imagem RGB.
+//
 GRAYIMAGE *RGBGreenToGray(RGBIMAGE *im){
     GRAYIMAGE *gim = calloc(1, sizeof(GRAYIMAGE));
 
@@ -63,7 +75,11 @@ GRAYIMAGE *RGBGreenToGray(RGBIMAGE *im){
     }
     return gim;
 }
-
+///
+///Função utilizada para converter uma imagem RGB(dada como argumento)
+///em uma imagem Grayscale em que o valor do pixel é dado pelo valor do mesmo pixel
+///do canal azul da imagem RGB.
+//
 GRAYIMAGE *RGBBlueToGray(RGBIMAGE *im){
     GRAYIMAGE *gim = calloc(1, sizeof(GRAYIMAGE));
 
@@ -82,7 +98,15 @@ GRAYIMAGE *RGBBlueToGray(RGBIMAGE *im){
     return gim;
 }
 
-
+///
+///Este programa converte uma imagem RGB em uma ou mais imagens Grayscale.
+///No caso de não serem utilizadas quaisquer opções na execução do programa
+///é necessário passar como argumentos os nomes dos ficheiros com a imagem a converter
+///e onde se vai escrever a imagem convertida.(Ex: ./RGBToGray fileToConvert outputFile)
+///Se for utilizada a opção -s é necessário passar como argumento 4 ficheiros.
+///O que vai ser convertido e 3 ficheiros onde vão ser guardadas as conversões de grayscale
+///de cada um dos canais da imagem original(Red, Green e Blue). (Ex: ./RGBToGray fileToConvert outputFileRed outputFileGreen outputFileBlue) 
+///
 int main(int argc, char *argv[]) {
 
     int flags, opt;
@@ -139,97 +163,5 @@ int main(int argc, char *argv[]) {
     }
 
     return 0;
-    /*RGBIMAGE *im = load_RGB_from_file("lena.ppm");
-    GRAYIMAGE *gim = RGBToGray(im);
-    save_Gray_image_to_file(gim, "writefGrayScale.pgm");
-
-
-    /*FILE *f = fopen("lena.ppm", "rb");
-    char *type = calloc(5, sizeof(char));
-    char *dim = calloc(50, sizeof(char));
-    int x;
-    int y;
-    char *num = calloc(5, sizeof(char));
-    int gama;
     
-    if(f == NULL){
-      printf("Error!");
-      exit(1);
-    }
-    fgets(type, 5, f);
-    fgets(dim, 50, f);
-    fgets(num, 5, f);
-    x = atoi(strtok(dim, " "));
-    y = atoi(strtok(NULL, " "));
-    gama = atoi(num);
-    unsigned char ***c = (unsigned char ***)calloc(x,sizeof(unsigned char *));
-    for(int i = 0; i<x; i++){
-        c[i] = (unsigned char **)calloc(y, sizeof(unsigned char *));
-    }
-
-    for(int i = 0; i<x; i++){
-        for(int n = 0; n<y; n++){
-            c[i][n] = calloc(3, sizeof(unsigned char));
-        }
-    }
-
-    for(int i = 0; i<x; i++){ //Line
-        for(int n = 0; n<y; n++){ //Column
-            for(int p = 0; p<3; p++){ //Red, Green, Blue
-                fread(&c[i][n][p], sizeof(unsigned char), 1, f);
-            }
-        }
-    }
-    fclose(f);
-
-    printf("Description: type %s   -- dim %d %d   -- num %d   --\n",strtok(type, "\n"), x, y, gama);
-    //Type for grayscale image : P5
-    unsigned char **gray = (unsigned char**)calloc(x, sizeof(unsigned char*));
-    for(int i = 0; i<x; i++){
-        gray[i] = (unsigned char*)calloc(y, sizeof(unsigned char));
-    }
-
-    for(int i = 0; i<x; i++){
-        for(int n = 0; n<y; n++){
-            int g = (c[i][n][0] *0.33) + (c[i][n][1] *0.59) + (c[i][n][2] *0.11);
-            if(g>255){
-                gray[i][n] = 255;
-            }
-            else{
-                gray[i][n] = (unsigned char) g;
-            }
-        }
-    }
-
-    
-    FILE *wf = fopen("writefGrayScale.pgm", "wb");
-    fprintf(wf, "P5\n%d %d\n%d\n", x, y, gama);
-
-    for(int i = 0; i<x; i++){ //Line
-        for(int n = 0; n<y; n++){ //Column
-            fwrite(&gray[i][n], sizeof(unsigned char), 1, wf);
-        }
-    }
-    fclose(wf);
-
-    /*
-    FILE *wf1 = fopen("writefGrayScaleR.pgm", "wb");
-    FILE *wf2 = fopen("writefGrayScaleG.pgm", "wb");
-    FILE *wf3 = fopen("writefGrayScaleB.pgm", "wb");
-    fprintf(wf1, "P5\n%d %d\n%d\n", x, y, gama);
-    fprintf(wf2, "P5\n%d %d\n%d\n", x, y, gama);
-    fprintf(wf3, "P5\n%d %d\n%d\n", x, y, gama);
-
-    for(int i = 0; i<x; i++){ //Line
-        for(int n = 0; n<y; n++){ //Column
-            fwrite(&c[i][n][0], sizeof(unsigned char), 1, wf1);
-            fwrite(&c[i][n][1], sizeof(unsigned char), 1, wf2);
-            fwrite(&c[i][n][2], sizeof(unsigned char), 1, wf3);
-        }
-    }
-    fclose(wf1);
-    fclose(wf2);
-    fclose(wf3);*/
-
-
 }

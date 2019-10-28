@@ -3,7 +3,10 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "structs.h"
-
+///
+///Função utilizada para aumentar a intensidade de uma imagem RGB de acordo com um multiplicador.
+///Por exemplo, se mult=2 a intensidade da imagem vai passar para o dobro.
+///
 void IncreaseIntensityRGB(RGBIMAGE *im, int mult) {
 
     for(int i = 0; i<im->x; i++){ //Line
@@ -21,7 +24,10 @@ void IncreaseIntensityRGB(RGBIMAGE *im, int mult) {
         }
     }
 }
-
+///
+///Função utilizada para diminuir a intensidade de uma imagem RGB de acordo com um multiplicador.
+///Por exemplo, se mult=2 a intensidade da imagem vai passar para metade.
+///
 void DecreaseIntensityRGB(RGBIMAGE *im, int mult) {
 
     for(int i = 0; i<im->x; i++){ //Line
@@ -34,7 +40,9 @@ void DecreaseIntensityRGB(RGBIMAGE *im, int mult) {
         }
     }
 }
-
+///
+///Função utilizda para averiguar se uma string tem valor numérico ou não.
+///
 int isNumeric (const char * s)
 {
     if (s == NULL || *s == '\0' || isspace(*s))
@@ -43,8 +51,11 @@ int isNumeric (const char * s)
     strtod (s, &p);
     return *p == '\0';
 }
-
-
+///
+///Este programa aumenta ou diminui a intensidade de uma imagem RGB.
+///Ele pode ser utilizado da seguinte forma: ./IntensityRGB [-d/-i] multiplier fileToAlter outputFile
+/// Se o argumento utilizado for -i a intensidade vai aumentar de acordo com o multiplier e se o argumento for -d a intensidade vai diminuir.
+///
 int main(int argc, char *argv[]) {
 
     int flags, opt;
@@ -91,67 +102,5 @@ int main(int argc, char *argv[]) {
 
     save_RGB_image_to_file(im, argv[4]);
 
-    /*FILE *f = fopen("lena.ppm", "rb");
-    char *type = calloc(5, sizeof(char));
-    char *dim = calloc(50, sizeof(char));
-    int x;
-    int y;
-    char *num = calloc(5, sizeof(char));
-    int gama;
     
-    if(f == NULL){
-      printf("Error!");
-      exit(1);
-    }
-    fgets(type, 5, f);
-    fgets(dim, 50, f);
-    fgets(num, 5, f);
-    x = atoi(strtok(dim, " "));
-    y = atoi(strtok(NULL, " "));
-    gama = atoi(num);
-    unsigned char ***c = (unsigned char ***)calloc(x,sizeof(unsigned char *));
-    for(int i = 0; i<x; i++){
-        c[i] = (unsigned char **)calloc(y, sizeof(unsigned char *));
-    }
-
-    for(int i = 0; i<x; i++){
-        for(int n = 0; n<y; n++){
-            c[i][n] = calloc(3, sizeof(unsigned char));
-        }
-    }
-
-    for(int i = 0; i<x; i++){ //Line
-        for(int n = 0; n<y; n++){ //Column
-            for(int p = 0; p<3; p++){ //Red, Green, Blue
-                fread(&c[i][n][p], sizeof(unsigned char), 1, f);
-            }
-        }
-    }
-    fclose(f);
-
-    printf("Description: type %s   -- dim %d %d   -- num %d   --\n",strtok(type, "\n"), x, y, gama);
-
-    
-    FILE *wf = fopen("increasedIntensityRGB.ppm", "wb");
-    fprintf(wf, "P6\n%d %d\n%d\n", x, y, gama);
-
-    for(int i = 0; i<x; i++){ //Line
-        for(int n = 0; n<y; n++){ //Column
-            for(int p = 0; p<3; p++){ //Red, Green, Blue
-            
-                if(c[i][n][p]*2<=255){
-                    c[i][n][p] = (unsigned char) (c[i][n][p]*2);
-                    printf("%d\n",(unsigned char)(c[i][n][p]));
-                    printf("%d\n",(unsigned char)(c[i][n][p]*2));
-                }
-                else {
-                    c[i][n][p] = (unsigned char) (255);
-                }
-                fwrite(&c[i][n][p], sizeof(unsigned char), 1, wf);
-            }
-        }
-    }
-
-    fclose(wf);*/
-
 }

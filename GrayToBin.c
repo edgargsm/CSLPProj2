@@ -3,7 +3,12 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "structs.h"
-
+///
+///Função utilizada para converter uma imagem Grayscale dada como argumento
+///em uma imagem binária através de um 'threshold' dado por argumento da função.
+///O bit tem valor 1 se o valor do bit for mais baixo que o 'threshold'
+/// e 0 caso contrário.
+///
 BINARYIMAGE *GrayToBinaryThreshold(GRAYIMAGE *im, int thresh){
     
     BINARYIMAGE *bim = calloc(1, sizeof(BINARYIMAGE));
@@ -27,7 +32,14 @@ BINARYIMAGE *GrayToBinaryThreshold(GRAYIMAGE *im, int thresh){
     }
     return bim;
 }
-
+///
+///Função utilizada para converter uma imagem Grayscale dada como argumento
+///em uma imagem binária através de um algoritmo de histograma.
+///Este algoritmo conta o número de ocurrencias de cada intensidade(0-255) e
+/// e depois define um 'threshold' médio através desse histograma.
+///O resto do algoritmo funcionda de forma similar á outra função de conversão
+///com o 'thrshold' calculado.
+///
 BINARYIMAGE *GrayToBinaryHistogram(GRAYIMAGE *im){
 
     BINARYIMAGE *bim = calloc(1, sizeof(BINARYIMAGE));
@@ -70,7 +82,9 @@ BINARYIMAGE *GrayToBinaryHistogram(GRAYIMAGE *im){
     }
     return bim;
 }
-
+///
+///Função utilizda para averiguar se uma string tem valor numérico ou não.
+///
 int isNumeric (const char * s)
 {
     if (s == NULL || *s == '\0' || isspace(*s))
@@ -79,8 +93,16 @@ int isNumeric (const char * s)
     strtod (s, &p);
     return *p == '\0';
 }
-
-
+///
+///Este programa converte uma imagem Grayscale em uma imagem binária.
+///Podem ser utilizados 2 algoritmos.
+///O algoritmo de 'threshold' que utiliza a função GrayToBinaryThreshold(). Este algoritmo pode ser
+///utilizado chamando o programa com a opção -t e com um valor de 'threshold'(entre 0 e 255) após este argumento.
+/// Também é necessário mais 2 argumentos com o nome da imagem a converter e com o nome 
+///do ficheiro onde se vai escrever a imagem convertida (Ex: ./GrayToBin -t 122 fileToConvert outputFile).
+///O outro algoritmo é o de histogramas. Este pode ser utilizado utilizando o argumento -h
+/// para além dos argumentos dos ficheiros de inout e output (Ex: ./GrayToBin -h fileToConvert outputFile). 
+///
 int main(int argc, char *argv[]) {
 
     int flags, opt;
@@ -135,64 +157,5 @@ int main(int argc, char *argv[]) {
         save_Binary_image_to_file(bim, argv[3]);
     }
 
-    /*FILE *f = fopen("writefGrayScale.pgm", "rb");
-    int thresh = 122;
-    char *type = calloc(5, sizeof(char));
-    char *dim = calloc(50, sizeof(char));
-    int x;
-    int y;
-    char *num = calloc(5, sizeof(char));
-    int gama;
     
-    if(f == NULL){
-      printf("Error!");
-      exit(1);
-    }
-    fgets(type, 5, f);
-    fgets(dim, 50, f);
-    fgets(num, 5, f);
-    x = atoi(strtok(dim, " "));
-    y = atoi(strtok(NULL, " "));
-    gama = atoi(num);
-
-    unsigned char **gray = (unsigned char **)calloc(x,sizeof(unsigned char *));
-    for(int i = 0; i<x; i++){
-        gray[i] = (unsigned char*)calloc(y, sizeof(unsigned char));
-    }
-
-    for(int i = 0; i<x; i++){ //Line
-        for(int n = 0; n<y; n++){ //Column
-            fread(&gray[i][n], sizeof(unsigned char), 1, f);
-        }
-    }
-
-    printf("Description: type %s   -- dim %d %d   -- num %d   --\n",strtok(type, "\n"), x, y, gama);
-    
-    FILE *wf = fopen("writefBinary.pbm", "wb");
-    fprintf(wf, "P4\n%d %d\n1\n", x, y);
-
-    int count = 7;
-    unsigned char c = 0;
-    for(int i = 0; i<x; i++){ //Line
-        for(int n = 0; n<y; n++){ //Column
-            if(gray[i][n]<=thresh){ //write 1
-                c = c | 1<<count;
-                count--;
-            }
-            else { //write 0
-                count--;
-            }
-            if(count==-1){
-                count=7;
-                fwrite(&c, 1, 1, wf);
-                c=0;
-            }
-        }
-    }
-    if(count!=7){
-        fwrite(&c, sizeof(unsigned char), 1, wf);
-    }
-
-    fclose(wf);*/
-
 }
