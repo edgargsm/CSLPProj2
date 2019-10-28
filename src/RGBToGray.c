@@ -2,8 +2,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include "structs.h"
+///@file
 
-
+///
+///Função utilizada para converter uma imagem RGB(dada como argumento)
+///em uma imagem Grayscale em que se calcula o valor de cada pixel através do valor
+///dos pixeis de todos os canais da imagem RGB.
+///
 GRAYIMAGE *RGBToGray(RGBIMAGE *im){
     GRAYIMAGE *gim = calloc(1, sizeof(GRAYIMAGE));
 
@@ -27,7 +32,11 @@ GRAYIMAGE *RGBToGray(RGBIMAGE *im){
     }
     return gim;
 }
-
+///
+///Função utilizada para converter uma imagem RGB(dada como argumento)
+///em uma imagem Grayscale em que o valor do pixel é dado pelo valor do mesmo pixel
+///do canal vermelho da imagem RGB.
+//
 GRAYIMAGE *RGBRedToGray(RGBIMAGE *im){
     GRAYIMAGE *gim = calloc(1, sizeof(GRAYIMAGE));
 
@@ -45,7 +54,11 @@ GRAYIMAGE *RGBRedToGray(RGBIMAGE *im){
     }
     return gim;
 }
-
+///
+///Função utilizada para converter uma imagem RGB(dada como argumento)
+///em uma imagem Grayscale em que o valor do pixel é dado pelo valor do mesmo pixel
+///do canal verde da imagem RGB.
+//
 GRAYIMAGE *RGBGreenToGray(RGBIMAGE *im){
     GRAYIMAGE *gim = calloc(1, sizeof(GRAYIMAGE));
 
@@ -63,7 +76,11 @@ GRAYIMAGE *RGBGreenToGray(RGBIMAGE *im){
     }
     return gim;
 }
-
+///
+///Função utilizada para converter uma imagem RGB(dada como argumento)
+///em uma imagem Grayscale em que o valor do pixel é dado pelo valor do mesmo pixel
+///do canal azul da imagem RGB.
+///
 GRAYIMAGE *RGBBlueToGray(RGBIMAGE *im){
     GRAYIMAGE *gim = calloc(1, sizeof(GRAYIMAGE));
 
@@ -82,7 +99,15 @@ GRAYIMAGE *RGBBlueToGray(RGBIMAGE *im){
     return gim;
 }
 
-
+///
+///Este programa converte uma imagem RGB em uma ou mais imagens Grayscale.\n
+///No caso de não serem utilizadas quaisquer opções na execução do programa
+///é necessário passar como argumentos os nomes dos ficheiros com a imagem a converter
+///e onde se vai escrever a imagem convertida.(Ex: ./RGBToGray fileToConvert outputFile)
+///Se for utilizada a opção -s é necessário passar como argumento 4 ficheiros.\n
+///O que vai ser convertido e 3 ficheiros onde vão ser guardadas as conversões de grayscale
+///de cada um dos canais da imagem original(Red, Green e Blue). (Ex: ./RGBToGray fileToConvert outputFileRed outputFileGreen outputFileBlue) 
+///
 int main(int argc, char *argv[]) {
 
     int flags, opt;

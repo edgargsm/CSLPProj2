@@ -3,7 +3,14 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "structs.h"
+///@file
 
+
+///Função utilizada para converter uma imagem Grayscale dada como argumento
+///em uma imagem binária através de um 'threshold' dado por argumento da função.\n
+///O bit tem valor 1 se o valor do bit for mais baixo que o 'threshold'
+/// e 0 caso contrário.
+///
 BINARYIMAGE *GrayToBinaryThreshold(GRAYIMAGE *im, int thresh){
     
     BINARYIMAGE *bim = calloc(1, sizeof(BINARYIMAGE));
@@ -27,7 +34,14 @@ BINARYIMAGE *GrayToBinaryThreshold(GRAYIMAGE *im, int thresh){
     }
     return bim;
 }
-
+///
+///Função utilizada para converter uma imagem Grayscale dada como argumento
+///em uma imagem binária através de um algoritmo de histograma.\n
+///Este algoritmo conta o número de ocurrencias de cada intensidade(0-255) e
+/// e depois define um 'threshold' médio através desse histograma.\n
+///O resto do algoritmo funciona de forma similar á outra função de conversão
+///com o 'thrshold' calculado.\n
+///
 BINARYIMAGE *GrayToBinaryHistogram(GRAYIMAGE *im){
 
     BINARYIMAGE *bim = calloc(1, sizeof(BINARYIMAGE));
@@ -70,7 +84,9 @@ BINARYIMAGE *GrayToBinaryHistogram(GRAYIMAGE *im){
     }
     return bim;
 }
-
+///
+///Função utilizda para averiguar se uma string tem valor numérico ou não.
+///
 int isNumeric (const char * s)
 {
     if (s == NULL || *s == '\0' || isspace(*s))
@@ -80,7 +96,16 @@ int isNumeric (const char * s)
     return *p == '\0';
 }
 
-
+///
+///Este programa converte uma imagem Grayscale em uma imagem binária.\n
+///Podem ser utilizados 2 algoritmos.\n
+///O algoritmo de 'threshold' que utiliza a função GrayToBinaryThreshold(). Este algoritmo pode ser
+///utilizado chamando o programa com a opção -t e com um valor de 'threshold'(entre 0 e 255) após este argumento.\n
+/// Também é necessário mais 2 argumentos com o nome da imagem a converter e com o nome 
+///do ficheiro onde se vai escrever a imagem convertida (Ex: ./GrayToBin -t 122 fileToConvert outputFile).\n
+///O outro algoritmo é o de histogramas. Este pode ser utilizado utilizando o argumento -h
+/// para além dos argumentos dos ficheiros de inout e output (Ex: ./GrayToBin -h fileToConvert outputFile). 
+///
 int main(int argc, char *argv[]) {
 
     int flags, opt;

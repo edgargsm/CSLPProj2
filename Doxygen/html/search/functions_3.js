@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['getbitpixel_60',['getBitPixel',['../structs_8h.html#a77e0e89c1a94b1334a051ece6ca0f07e',1,'structs.h']]],
+  ['getgraypixel_61',['getGrayPixel',['../structs_8h.html#a39a9a761c8858f1d2038b3beeb056739',1,'structs.h']]],
+  ['getrgbpixel_62',['getRGBPixel',['../structs_8h.html#aa87733cd4ebe72ffc90b642c7a74d40a',1,'structs.h']]],
+  ['graytobinaryhistogram_63',['GrayToBinaryHistogram',['../GrayToBin_8c.html#abf0f1784ce6bf12db84d7fa19e8cfa2f',1,'GrayToBin.c']]],
+  ['graytobinarythreshold_64',['GrayToBinaryThreshold',['../GrayToBin_8c.html#a93535fe5e0fcb168a38bc2f7c8fff971',1,'GrayToBin.c']]]
+];

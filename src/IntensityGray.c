@@ -3,7 +3,12 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "structs.h"
+///@file
 
+///
+///Função utilizada para aumentar a intensidade de uma imagem GrayScale de acordo com um multiplicador.\n
+///Por exemplo, se mult=2 a intensidade da imagem vai passar para o dobro.
+///
 void IncreaseIntensityGray(GRAYIMAGE *im, int mult) {
 
     for(int i = 0; i<im->x; i++){ //Line
@@ -19,7 +24,10 @@ void IncreaseIntensityGray(GRAYIMAGE *im, int mult) {
         }
     }
 }
-
+///
+///Função utilizada para diminuir a intensidade de uma imagem GrayScale de acordo com um multiplicador.\n
+///Por exemplo, se mult=2 a intensidade da imagem vai passar para metade.
+///
 void DecreaseIntensityGray(GRAYIMAGE *im, int mult) {
 
     for(int i = 0; i<im->x; i++){ //Line
@@ -30,7 +38,9 @@ void DecreaseIntensityGray(GRAYIMAGE *im, int mult) {
         }
     }
 }
-
+///
+///Função utilizda para averiguar se uma string tem valor numérico ou não.
+///
 int isNumeric (const char * s)
 {
     if (s == NULL || *s == '\0' || isspace(*s))
@@ -39,7 +49,11 @@ int isNumeric (const char * s)
     strtod (s, &p);
     return *p == '\0';
 }
-
+///
+///Este programa aumenta ou diminui a intensidade de uma imagem GrayScale.\n
+///Ele pode ser utilizado da seguinte forma: ./IntensityRGB [-d/-i] multiplier fileToAlter outputFile\n
+/// Se o argumento utilizado for -i a intensidade vai aumentar de acordo com o multiplier e se o argumento for -d a intensidade vai diminuir.
+///
 int main(int argc, char *argv[]) {
 
     int flags, opt;

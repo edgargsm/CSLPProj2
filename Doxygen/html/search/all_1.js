@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['binaryimage_1',['BINARYIMAGE',['../structBINARYIMAGE.html',1,'']]],
-  ['bitpixel_2',['BitPixel',['../structBitPixel.html',1,'']]]
+  ['binaryimage_4',['BINARYIMAGE',['../structBINARYIMAGE.html',1,'']]],
+  ['bitpixel_5',['BitPixel',['../structBitPixel.html',1,'']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['rgbimage_14',['RGBIMAGE',['../structRGBIMAGE.html',1,'']]],
-  ['rgbpixel_15',['RgbPixel',['../structRgbPixel.html',1,'']]]
+  ['rgbimage_45',['RGBIMAGE',['../structRGBIMAGE.html',1,'']]],
+  ['rgbpixel_46',['RgbPixel',['../structRgbPixel.html',1,'']]]
 ];

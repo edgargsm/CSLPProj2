@@ -2,9 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include "structs.h"
+///@file
 
-// Compilar com comando : cc -Wall -O2 -std=c99 program.c -o example -lm
-
+/// Função utilizada para aplicar o filtro de edge detection a uma imagem GrayScale.
+/// Este filtro foi aplicado de acordo com um kernel que está definido dentro da função
+///
 GRAYIMAGE *edgeDetection(GRAYIMAGE *im){
     int kernel[3][3] = {{-1,-1,-1},
                         {-1, 8,-1},
@@ -43,6 +45,10 @@ GRAYIMAGE *edgeDetection(GRAYIMAGE *im){
     return edge;
 }
 
+///
+/// Função utilizada para aplicar um filtro de sharpen a uma imagem RGB.
+/// Este filtro foi aplicado de acordo com um kernel que está definido dentro da função
+///
 RGBIMAGE *SharpenFilter(RGBIMAGE *im){
     int kernel[3][3] = {{0,-1,0},
                         {-1, 5,-1},
@@ -83,31 +89,17 @@ RGBIMAGE *SharpenFilter(RGBIMAGE *im){
     return sharp;
 }
 
-GRAYIMAGE *RGBToGray(RGBIMAGE *im){
-    GRAYIMAGE *gim = calloc(1, sizeof(GRAYIMAGE));
 
-    gim->type = "P5";
-    gim->x = im->x;
-    gim->y = im->y;
-    gim->gama = im->gama;
-
-    gim->gray = allocMemGray(gim->x,gim->y);
-
-    for(int i = 0; i<gim->x; i++){ //Line
-        for(int n = 0; n<gim->y; n++){ //Column
-            int g = (im->rgb[i][n].pix[0] *0.33) + (im->rgb[i][n].pix[1] *0.59) + (im->rgb[i][n].pix[2] *0.11);
-            if(g>255){
-                gim->gray[i][n].pix = 255;
-            }
-            else{
-                gim->gray[i][n].pix = (unsigned char) g;
-            }
-        }
-    }
-    return gim;
-}
-
-
+///
+///Este programa aplica filtros a imagens RGB.\n
+///Ele pode ser utilizado da seguinte forma: ./filters [-s/-e] inputFile outputFile\n
+///Se a opção -s for utilizada o output vai ser de uma imagem RGB originária da aplicação do filtro 'sharpen' sobre a imagem de input.\n
+///E se a opção -e for utilizada o output vai ser uma imagem GrayScale originária da aplicação do filtro 'edge detection' sobre a imagem de input.\n
+///Este programa contém um bug que nós não conseguimos resolver em que apenas imagens com dimensões quadradas podem ser filtradas.\n
+///Quando é utilizada uma imagem com outras dimensões o output não é o correto de aplicação do filtro.\n
+///Imagens com que funciona : lena.ppm, peppers.ppm, airplane.ppm, house.ppm, boat.ppm, baboon.ppm\n
+///Imagens com que não funciona : bike3.ppm, anemone.ppm, monarch.ppm, arial.ppm\n
+///
 int main(int argc, char *argv[]) {
 
     int flags, opt;

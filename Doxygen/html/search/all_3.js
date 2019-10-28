@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['main_5',['main',['../waterMarker_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'waterMarker.c']]],
-  ['makewatermark_6',['makeWaterMark',['../waterMarker_8c.html#a99a9c38d2137b11e2119d3436648e2f3',1,'waterMarker.c']]]
+  ['edgedetection_8',['edgeDetection',['../filters_8c.html#a3253db74877be589195f9b6c6509e651',1,'filters.c']]]
 ];
